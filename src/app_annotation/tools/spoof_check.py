@@ -39,7 +39,7 @@ def spoof_check(app_name: str) -> bool:
     structured_model = model.with_structured_output(_SpoofCheckResult)
     prompt_template = load_prompt(SPOOF_PROMPT_FILE)
     result = structured_model.invoke(prompt_template.format(app_name=app_name))
-    return result.is_likely_spoof, result.reasoning, result.confidence, result.urls
+    return result.is_likely_spoof, result.confidence, result.reasoning, result.urls
 
 
 @tool
