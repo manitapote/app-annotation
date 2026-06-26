@@ -1,0 +1,63 @@
+# --- Python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+
+# --- Virtual environments -----------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# --- Secrets / environment config ----------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- Data -- code is tracked, data is not -------------------------------
+# Keep folder structure (.gitkeep) but never commit actual datasets or
+# generated annotation output -- these change for different reasons than
+# code does and would bloat git history fast.
+data/input/*
+data/output/*
+data/annotated/*
+!data/input/.gitkeep
+!data/output/.gitkeep
+!data/annotated/.gitkeep
+
+# --- Eval results ---------------------------------------------------------
+# The gold set itself IS tracked (it's a fixed test dataset, part of the
+# project) -- only the historical run outputs are ignored.
+evals/results/*
+!evals/results/.gitkeep
+
+# --- Cache / local DB -----------------------------------------------------
+*.sqlite3
+*.db
+
+# --- Testing / linting caches ---------------------------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Jupyter ---------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- Editor / IDE ----------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# --- OS noise ----------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --- Logs ----------------------------------------------------------------
+*.log
