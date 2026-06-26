@@ -25,7 +25,7 @@ class _SpoofCheckResult(BaseModel):
     """
     is_likely_spoof: bool
     reasoning: str = Field(description="Brief justification for the judgment")
-    confidence: float
+    confidence: float = Field(ge=0, le=1)
     urls: list[str] = []
 
 
@@ -39,7 +39,7 @@ def spoof_check(app_name: str) -> bool:
     structured_model = model.with_structured_output(_SpoofCheckResult)
     prompt_template = load_prompt(SPOOF_PROMPT_FILE)
     result = structured_model.invoke(prompt_template.format(app_name=app_name))
-    return result #.is_likely_spoof
+    return result.is_likely_spoof, result.reasoning, result.confidence, result.urls
 
 
 @tool
