@@ -6,9 +6,10 @@ from app_annotation.nodes.search import search_node
 
 
 def route_after_spoof_check(state: AnnotationState) -> str:
-    if state["result"].spoof_confidence < 0.5:
-        return "search"
-    return "end"
+    result = state["result"]
+    if result.spoof_check and result.spoof_confidence >= 0.5:
+        return "end"
+    return "search"
 
 
 graph = StateGraph(AnnotationState)
