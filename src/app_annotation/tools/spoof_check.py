@@ -13,6 +13,7 @@ field.
 
 from pydantic import BaseModel, Field
 from langchain_core.tools import tool
+from typing import Literal
 
 from app_annotation.models import get_model
 from app_annotation.prompts_loader import load_prompt
@@ -27,19 +28,21 @@ class _SpoofCheckResult(BaseModel):
     reasoning: str = Field(description="Brief justification for the judgment")
     confidence: float = Field(ge=0, le=1)
     urls: list[str] = []
+    category: Literal["Native", "Popular", "Others"]
 
 
 def spoof_check(app_name: str) -> bool:
     """
     Returns True if `app_name` appears to be impersonating a specific,
     well-known app/brand name; False otherwise (including when there's
-    no clear match to imitate, or genuine ambiguity).
+    no clear match to imitate, or genuine ambiguity), result confidence, reasoning, 
+    URLs if found any documentation and annotation category.
     """
     model = get_model()
     structured_model = model.with_structured_output(_SpoofCheckResult)
     prompt_template = load_prompt(SPOOF_PROMPT_FILE)
     result = structured_model.invoke(prompt_template.format(app_name=app_name))
-    return result.is_likely_spoof, result.confidence, result.reasoning, result.urls
+    return result.is_likely_spoof, result.confidence, result.reasoning, result.urls, result.category
 
 
 @tool
