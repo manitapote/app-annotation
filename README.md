@@ -1,7 +1,7 @@
 # App Name Annotator
 
 A LangGraph agent that classifies app/client names into **Native**, **Popular**,
-or **Others** — combining a fast, knowledge-based spoof/identity check with a
+or **Others**, combining a fast, knowledge-based spoof/identity check with a
 confidence-gated, real web search fallback for cases the model can't confidently
 resolve on its own.
 
@@ -26,7 +26,7 @@ web_search  ──▶ END   (category = "Popular" or "Others", based on real evi
    the name looks like a typosquat/impersonation of a known brand, and separately
    classifies it as `Native` (Twitter/X's own product), `Popular`, or `Others`.
 2. If spoof_check is **confidently** sure the name *is* a spoof, that's the final
-   answer — there's nothing more to check.
+   answer, there's nothing more to check.
 3. Otherwise, **`web_search`** runs a real query (OpenAI's built-in `web_search`
    tool via the Responses API) and overrides the category/reasoning/sources with
    evidence-backed findings.
@@ -127,7 +127,7 @@ streamlit run scripts/app_ui.py
 
 Put a hand-labeled file at `data/annotated/gold_standard.csv` with columns
 `app_names` (or `app_name`), `Category`, `Reasoning`. **`Native` rows are
-excluded from scoring** — neither `spoof_check` nor `web_search` can currently
+excluded from scoring**, neither `spoof_check` nor `web_search` can currently
 distinguish "Twitter's own product" from anything else, so those rows are
 untestable by design, not a bug.
 
