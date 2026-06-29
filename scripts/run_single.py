@@ -18,4 +18,5 @@ for name in ambiguous_names:
     print(f"{name!r}")
     print(f"  spoof_confidence: {result.spoof_confidence}")
     print(f"  is_well_known: {result.is_well_known}  <- not None means web_search ran")
+    print(f"  reasoning: {result.reasoning}")
     print("-" * 60)
