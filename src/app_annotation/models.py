@@ -42,9 +42,11 @@ def get_admin_model(temperature: Optional[float] = None):
     """
     if temperature is None:
         temperature = CLASSIFY_TEMPERATURE
-    admin_key = os.environ.get("OPENAI_ADMIN_KEY")
+    
+    admin_key = os.environ.get("OPENAI_API_KEY")
     if not admin_key:
         raise RuntimeError(
-            "OPENAI_ADMIN_KEY is not set. Add it to .env file."
+            "OPENAI_API_KEY is not set. Add it to .env file."
         )
-    return ChatOpenAI(model="gpt-5.5-mini", temperature=temperature, api_key=admin_key)
+    return ChatOpenAI(model="gpt-5.4-mini", temperature=temperature, api_key=admin_key)
+
