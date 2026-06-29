@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Literal
 
 class Result(BaseModel):
     spoof_check: bool
@@ -8,3 +8,4 @@ class Result(BaseModel):
     spoof_evidence: list[str] = [] 
     is_well_known: Optional[bool] = None
     urls: list[str] = []
+    category: Literal["Native", "Popular", "Others"]
